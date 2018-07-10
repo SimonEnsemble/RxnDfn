@@ -1,5 +1,5 @@
 using Calculus
-
+using ProgressMeter
 """
 Arguments:
 * f: reaction term f(x, t, u)
@@ -53,7 +53,7 @@ function solve_rxn_diffn_eqn(f, u₀, bc::BoundaryCondition, D::Float64, Nₓ::I
     # this u is the value of u(x, t) when t = k - 1 over discretized x points.
     u = u₀.(x)
 
-    # trim u and x so that i index corresponds to xᵢ and uᵢ,ₖ
+    # trim u and x so that i index corresponds to x and uᵢ,ₖ
     if typeof(bc) == Neumann
         # all are unknown, no trimming required
     elseif typeof(bc) == Dirichlet
@@ -72,15 +72,28 @@ function solve_rxn_diffn_eqn(f, u₀, bc::BoundaryCondition, D::Float64, Nₓ::I
     # initialize u_sample and t_sample to be filled below with specific time steps for graphing purposes
     num_samples = ceil(Int, st.tf / sample_time) # determines size of u_sample and t_sample
     sample_freq = floor(Int, discretization.Nₜ / (num_samples - 1)) # don't count the 0 sample
-    u_sample = zeros(Float64, nb_unknowns, num_samples) # nb_unknowns = size of u, num_samples, how many u's we will store
+    u_sample = zeros(Float64, discretization.Nₓ, num_samples) # nb_unknowns = size of u, num_samples, how many u's we will store
     t_sample = zeros(Float64, num_samples)
     sample_counter = 1 # for if loop below to identify column of u_sample, increments below after u_sample is imput
 
     # take time steps.
-    for k = 1:discretization.Nₜ
-
-        # time here, inside the loop
+    @showprogress 1 "Computing..." for k = 1:discretization.Nₜ
+       # time here, inside the loop
         t = discretization.Δt * k
+
+        # Store u and t every so often so we can plot.
+        #
+        if (k == 1) || (k % sample_freq == 0)
+             if typeof(bc) == Neumann
+                 u_sample[:, sample_counter] = u
+             elseif typeof(bc) == Dirichlet
+                u_sample[2:end-1, sample_counter] = u
+            elseif typeof(bc) == Periodic
+                u_sample[1:end-1, sample_counter] = u
+             end
+                t_sample[sample_counter] = t - discretization.Δt
+                sample_counter += 1
+         end
 
         # build right-hand side vector of matrix eqn.
         for i = 1:nb_unknowns
@@ -88,7 +101,7 @@ function solve_rxn_diffn_eqn(f, u₀, bc::BoundaryCondition, D::Float64, Nₓ::I
             rhs[i] = u[i]
             # contribution from reaction term
             rhs[i] += f(x[i], t, u[i]) * discretization.Δt
-            # TODO contribution from advection
+            # TODO contribution from advection?
             # contribution from spatial Laplacian
             if (i != 1) && (i != nb_unknowns)
                 rhs[i] += λ * (u[i - 1] - 2 * u[i] + u[i + 1])
@@ -117,14 +130,15 @@ function solve_rxn_diffn_eqn(f, u₀, bc::BoundaryCondition, D::Float64, Nₓ::I
 
          # solve for u at next time step (overwrite previous)
          u = A \ rhs
+    end
 
-         # Store u and t every so often so we can plot.
-         if (k == 1) || (k % sample_freq == 0)
-                u_sample[:, sample_counter] = u
-                t_sample[sample_counter] = t
-                sample_counter += 1
-         end
-
+    if typeof(bc) == Dirichlet
+        u_sample[1, :] = bc.ū₀
+        u_sample[end, :] = bc.ūₗ
+        x = vcat([0.0], x, [st.L])
+    elseif typeof(bc) == Periodic
+        u_sample[end, :] = u_sample[1, :]
+        push!(x, st.L)
     end
 
     return t_sample, x, u_sample

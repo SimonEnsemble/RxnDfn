@@ -1,6 +1,6 @@
 #Function to create heat map based on x, t, u
-
-function draw_heat_map(x, t, u)
+function draw_heat_map(t, x, u)
+    import PyPlot; const plt = PyPlot
     Nₜ = length(t)
     Nₓ = length(x)
 
@@ -19,7 +19,7 @@ function draw_heat_map(x, t, u)
     plt.pcolormesh(X,T, transpose(u))
     plt.xlabel("x")
     plt.ylabel("t")
-    plt.colorbar(label="Concentration of A")
+    plt.colorbar(label="Concentration of u")
     plt.savefig("heatmap.png")
     if typeof(bc) == Neumann
         plt.title("Neumann Boundary Conditions")
