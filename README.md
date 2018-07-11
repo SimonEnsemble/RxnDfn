@@ -44,10 +44,10 @@ As shown in the example above, the draw_heat_map function outputs a heat map usi
 ## Examples
 
 ### Dirichlet Boundary Conditions
-![Dirichlet Heat Transfer](https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletHeatTransferPic.png)
+![Dirichlet Heat Transfer|880x658,50%](https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletHeatTransferPic.png)
 
 ### Neumann Boundary Conditions
-![Neumann Fish Boundary Conditions](https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/NeumannFishPic.png)
+![Neumann Fish Boundary Conditions|1522x751,50%](https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/NeumannFishPic.png)
 
 ### Periodic Boundary Conditions
-![Periodic Thin Ring Example](https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/PeriodicRingPic.png)
+![Periodic Thin Ring Example|722x855,50%](https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/PeriodicRingPic.png)
