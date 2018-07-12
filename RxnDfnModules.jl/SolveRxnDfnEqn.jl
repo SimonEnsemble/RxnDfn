@@ -53,7 +53,7 @@ function solve_rxn_diffn_eqn(f, u₀, bc::BoundaryCondition, D::Float64, Nₓ::I
     # this u is the value of u(x, t) when t = k - 1 over discretized x points.
     u = u₀.(x)
 
-    # trim u and x so that i index corresponds to x and uᵢ,ₖ
+    # trim u and x so that i index corresponds to xᵢ and uᵢ,ₖ
     if typeof(bc) == Neumann
         # all are unknown, no trimming required
     elseif typeof(bc) == Dirichlet
@@ -81,16 +81,17 @@ function solve_rxn_diffn_eqn(f, u₀, bc::BoundaryCondition, D::Float64, Nₓ::I
        # time here, inside the loop
         t = discretization.Δt * k
 
-        # Store u and t every so often so we can plot.
-        #
+        # Store u and t every sample_time so we can plot.
         if (k == 1) || (k % sample_freq == 0)
-             if typeof(bc) == Neumann
+            # Different bc's have different num of unknowns, so we account for that here
+            # Dirichlet and Periodic bc's are added later
+            if typeof(bc) == Neumann
                  u_sample[:, sample_counter] = u
-             elseif typeof(bc) == Dirichlet
+            elseif typeof(bc) == Dirichlet
                 u_sample[2:end-1, sample_counter] = u
             elseif typeof(bc) == Periodic
                 u_sample[1:end-1, sample_counter] = u
-             end
+            end
                 t_sample[sample_counter] = t - discretization.Δt
                 sample_counter += 1
          end
@@ -132,12 +133,17 @@ function solve_rxn_diffn_eqn(f, u₀, bc::BoundaryCondition, D::Float64, Nₓ::I
          u = A \ rhs
     end
 
+    # add in boundary conditions to Dirichlet and Periodic
     if typeof(bc) == Dirichlet
+        # insert bc's for first and last rows
         u_sample[1, :] = bc.ū₀
         u_sample[end, :] = bc.ūₗ
+        # add first and last spatial step to x
         x = vcat([0.0], x, [st.L])
     elseif typeof(bc) == Periodic
+        # assign last row to be the same as first since Periodic bc's
         u_sample[end, :] = u_sample[1, :]
+        # add last spatial step to x
         push!(x, st.L)
     end
 
