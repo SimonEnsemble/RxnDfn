@@ -47,7 +47,16 @@ As shown in the example above, the draw_heat_map function outputs a heat map usi
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletHeatTransferPic.png" width="440" height="329" title="Dirichlet Heat Transfer">
 
 ### Neumann Boundary Conditions
-<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/NeumannFishPic.png" width="761" height="375" title="Neumann Fish Boundary Conditions">
+<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/NeumannLakePic.png" width="473" height="237" title="Neumann Fish Boundary Conditions">
+
+Imagine you have a one dimensional lake with a town at one end and a forest at the other as pictured above. We can use the following equation to model the fish population in the lake if people fish there:   
+
+<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/FishHarvestingEqn.PNG" width="357" height="96" title="Fish Harvesting Reaction Diffusion Equation">
+
+The reaction term consists of the logistic growth model to simulate the population density of the fish and `ch(x)p(u)` to model the harvesting of the fish.
+`c` is the harvesting rate.
+`h(x)` is the harvesting distribution (i.e. how far from the town the person fishing drops a line in the lake).
+`p(u)` is the probability of catching a fish based on the population density of the fish.
 
 ### Periodic Boundary Conditions
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/PeriodicRingPic.png" width="361" height="427" title="Periodic Thin Ring Example">
