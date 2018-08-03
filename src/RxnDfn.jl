@@ -1,4 +1,4 @@
-module RxnDfn_VariedBCs
+module RxnDfn
 
 include("BoundaryConditions.jl")
 include("SpaceTime_Discretization.jl")
