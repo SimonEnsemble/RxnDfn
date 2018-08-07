@@ -5,7 +5,7 @@ ReactionDiffusionEqn is a Julia package that can solve a reaction diffusion equa
 1. Diffusion Coefficient (D)
 2. Reaction Term (f(x, t, u))
 3. Initial Condition (u₀)
-4. Boundary Conditions (Dirichlet, Neumann, or Periodic)
+4. Boundary Conditions (Dirichlet, Neumann, Convective Heat (aka Robin), or Periodic)
 5. Number of Spatial Steps (Nₓ - number of spatial discretization points)
 6. Space Time (space-time over which solution to PDE is approximated)
 7. Sample Time (stores u every sample_time time steps)
@@ -19,16 +19,19 @@ Below is an example with Dirichlet Boundary Conditions and the corresponding hea
 D = 1.0
 f(x::Float64, t::Float64, u::Float64) = 100 * (D * π^2 - 1.0) * (e ^ (-t)  * sin(π * x))
 u₀(x::Float64) = 100 * sin(π * x)
-bc = Dirichlet(0.0, 0.0)
+left_bc = Dirichlet(0.0)
+right_bc = Dirichlet(0.0)
 Nₓ = 100
 st = SpaceTime(1.0, 1.0)
 sample_time = 0.1
 
-t, x, u = solve_rxn_diffn_eqn(f, u₀, bc, D, Nₓ, st, sample_time)
+t, x, u = solve_rxn_diffn_eqn(left_bc, right_bc, f, u₀, D, Nₓ, st, sample_time)
 
 draw_heat_map(t, x, u)
 ```
 ![Dirichlet Heat Map](https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletHeatMap.png)
+
+ReactionDiffusionEqn can also handle mixed boundary conditions, such as Dirichlet-Neumann, Dirichlet-ConvectiveHeat, or Neumann-ConvectiveHeat.
 
 The following functions are also available to aid in visualizations:
 ```Julia
@@ -60,3 +63,9 @@ The reaction term consists of the logistic growth model to simulate the populati
 
 ### Periodic Boundary Conditions
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/PeriodicRingPic.png" width="361" height="427" title="Periodic Thin Ring Example">
+
+### Convective Heat Boundary Conditions
+<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/ConvectiveHEat.png" width="446" height="241" title="Convective Heat Example">
+
+### Dirichlet-Neumann Boundary Conditions
+<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletNeumann.png" width="446" height="241" title="Dirichlet-Neumann Example">
