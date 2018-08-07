@@ -13,9 +13,10 @@ include("SolveRxnDfnEqn.jl")
 include("PeriodicSolveRxnDfnEqn.jl")
 include("CreateHeatMap.jl")
 include("Exact_u.jl")
+include("Plot_u.jl")
 
-export BoundaryCondition, Dirichlet, Neumann, Periodic,
-    build_tri_diagonal_matrix, Discretization, SpaceTime,
-    nb_spatial_unknowns, solve_rxn_diffn_eqn,
-    draw_heat_map, nb_spatial_unknowns, create_exact_u
+export BoundaryCondition, Dirichlet, Neumann, Periodic, ConvectiveHeat,
+    build_tri_diagonal_matrix, Discretization, SpaceTime, setup_discretization,
+    nb_spatial_unknowns, solve_rxn_diffn_eqn, gif_maker,
+    draw_heat_map, nb_spatial_unknowns, create_exact_u, apply_bcs!
 end
