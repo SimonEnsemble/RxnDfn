@@ -65,7 +65,7 @@ The reaction term consists of the logistic growth model to simulate the populati
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/PeriodicRingPic.png" width="361" height="427" title="Periodic Thin Ring Example">
 
 ### Convective Heat Boundary Conditions
-<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/ConvectiveHEat.png" width="446" height="241" title="Convective Heat Example">
+<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/ConvectiveHeat.png" width="446" height="241" title="Convective Heat Example">
 
 ### Dirichlet-Neumann Boundary Conditions
-<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletNeumann.png" width="446" height="241" title="Dirichlet-Neumann Example">
+<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletNeumann.png" width="593" height="298" title="Dirichlet-Neumann Example">
