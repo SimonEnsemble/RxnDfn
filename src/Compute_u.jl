@@ -84,7 +84,7 @@ function compute_u(left_bc::Union{Neumann, Dirichlet, Periodic, ConvectiveHeat},
             rhs[1] += λ * (left_bc.ū - 2 * u[1] + u[2])
         elseif isa(left_bc, ConvectiveHeat)
             # similar to Neumann, utilizes "ghost" points
-            rhs[1] += 2 * λ * (u[1] * (1 - discretization.Δx * left_bc.K̄) + u[2] + 2 * discretization.Δx * left_bc.K̄ * left_bc.T̄₀)
+            rhs[1] += 2 * λ * (-u[1] * (1 + discretization.Δx * left_bc.K̄) + u[2] + 2 * discretization.Δx * left_bc.K̄ * left_bc.T̄₀)
         end
         if isa(right_bc, Neumann)
             rhs[end] += λ * (4.0 * discretization.Δx * right_bc.∂ū + 2 * u[end - 1] - 2 * u[end])
@@ -92,11 +92,12 @@ function compute_u(left_bc::Union{Neumann, Dirichlet, Periodic, ConvectiveHeat},
             rhs[end] += λ  * (u[end - 1] - 2 * u[end]  + right_bc.ū)
         elseif isa(right_bc, ConvectiveHeat)
             # similar to Neumann, utilizes "ghost" points
-            rhs[end] += 2 * λ * ( u[end] * (1 - discretization.Δx * left_bc.K̄) + u[end - 1] - 2 * discretization.Δx * right_bc.K̄ * right_bc.T̄₀)
+            rhs[end] += 2 * λ * ( u[end] * (discretization.Δx * right_bc.K̄ - 1) + u[end - 1] - 2 * discretization.Δx * right_bc.K̄ * right_bc.T̄₀)
         end
 
         # solve for u at next time step (overwrite previous)
         u = A \ rhs
+
     end
 
     # add in boundary conditions to Dirichlet and Periodic

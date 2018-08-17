@@ -7,6 +7,6 @@ function nb_spatial_unknowns(discretization::Discretization, left_bc::Union{Neum
         return discretization.Nₓ - 2
     else
         # accounts for Periodic, Dirichlet-Neumann, & Dirichlet-ConvectiveHeat bc's
-        return discretization.Nₓ - 1
+            return discretization.Nₓ - 1
     end
 end
