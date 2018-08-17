@@ -1,5 +1,4 @@
 using RxnDfn
-
 using Base.Test
 @testset "RxnDfn Exact Solution Tests" begin
      @testset "Periodic BC Test" begin
@@ -53,6 +52,7 @@ using Base.Test
         u_e = create_exact_u(t, x, exact_u, D)
         @test isapprox(u, u_e, rtol=.001)
     end;
+
 #=    #TODO ConvectiveHeat BCs
     @testset "ConvectiveHeat BC Test" begin
         function exact_u(x::Float64, t::Float64, D::Float64)
@@ -70,7 +70,7 @@ using Base.Test
         u_e = create_exact_u(t, x, exact_u, D)
         @test isapprox(u, u_e, rtol=.001)
     end;
- =#  
+=#    
     @testset "Dirichlet-Neumann BC Test" begin
         function exact_u(x::Float64, t::Float64, D::Float64)
             return e^(-(π^2 * t) / 4) * sin((π * x) / 2)
@@ -87,24 +87,28 @@ using Base.Test
         u_e = create_exact_u(t, x, exact_u, D)
         @test isapprox(u, u_e, rtol=.001)
     end;
-#=    TODO Dirichlet-ConvectiveHeat BC
+
     @testset "Dirichlet-ConvectiveHeat BC Test" begin
         function exact_u(x::Float64, t::Float64, D::Float64)
-            return
+            return e^(-λ * D * t) * sin(sqrt(λ) * x)
         end
         D = 1.0
-        f(x::Float64, t::Float64, u::Float64) =
-        u₀(x::Float64) =
-        left_bc = Dirichlet()
-        right_bc = ConvectiveHeat( , )
+        left_bc = Dirichlet(0.0)
+        right_bc = ConvectiveHeat(0.0, 2.0)
+        g(y) = right_bc.K̄ * tan(y) - y
+        using Roots
+        y = find_zero(g, 4.9)
+        λ = y^2
+        f(x::Float64, t::Float64, u::Float64) = 0.0
+        u₀(x::Float64) = sin(sqrt(λ) * x)
         Nₓ = 100
-        st = SpaceTime(1.0, 1.0)
-        sample_time = 0.1
+        st = SpaceTime(1.0, 0.1)
+        sample_time = 0.01
         t, x, u = solve_rxn_diffn_eqn(left_bc, right_bc, f, u₀, D, Nₓ, st, sample_time)
         u_e = create_exact_u(t, x, exact_u, D)
         @test isapprox(u, u_e, rtol=.001)
     end;
-       TODO Neumann-ConvectiveHeat BC
+#=       TODO Neumann-ConvectiveHeat BC
     @testset "Neumann-ConvectiveHeat BC Test" begin
         function exact_u(x::Float64, t::Float64, D::Float64)
             return
