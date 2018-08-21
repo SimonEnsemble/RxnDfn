@@ -57,8 +57,11 @@ Imagine you have a one dimensional lake with a town at one end and a forest at t
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/FishHarvestingEqn.PNG" width="357" height="96" title="Fish Harvesting Reaction Diffusion Equation">
 
 The reaction term consists of the logistic growth model to simulate the population density of the fish and `ch(x)p(u)` to model the harvesting of the fish.
+
 :fish: `c` is the harvesting rate.
+
 :fish: `h(x)` is the harvesting distribution (i.e. how far from the town the person fishing drops a line in the lake).
+
 :fish: `p(u)` is the probability of catching a fish based on the population density of the fish.
 
 ### Periodic Boundary Conditions
@@ -69,9 +72,13 @@ One can model the changes in grass density where a tree shades some grass and fa
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassEquation.PNG" width="357" height="96" title="Grass Growth Reaction Diffusion Equation">
 
 The reaction term consists of the logistic growth model to simulate the density of the grass and `- mb - hqb` to model death of the grass.
+
 :elephant: `g` is the growth rate of the grass
+
 :elephant: `m` is the mortality rate of the grass
+
 :elephant: `h`is the biomass density of the fauna
+
 :elephant: `q` is the rate of consumption of the grass
 
 ### Convective Heat Boundary Conditions
