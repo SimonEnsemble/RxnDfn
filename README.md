@@ -31,7 +31,7 @@ draw_heat_map(t, x, u)
 ```
 ![Dirichlet Heat Map](https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletHeatMap.png)
 
-ReactionDiffusionEqn can also handle mixed boundary conditions, such as Dirichlet-Neumann, Dirichlet-ConvectiveHeat, or Neumann-ConvectiveHeat.
+ReactionDiffusionEqn can also handle mixed boundary conditions, such as Dirichlet-Neumann, Dirichlet-ConvectiveHeat, Neumann-ConvectiveHeat, etc.
 
 The following functions are also available to aid in visualizations:
 ```Julia
@@ -57,22 +57,22 @@ Imagine you have a one dimensional lake with a town at one end and a forest at t
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/FishHarvestingEqn.PNG" width="357" height="96" title="Fish Harvesting Reaction Diffusion Equation">
 
 The reaction term consists of the logistic growth model to simulate the population density of the fish and `ch(x)p(u)` to model the harvesting of the fish.
-`c` is the harvesting rate.
-`h(x)` is the harvesting distribution (i.e. how far from the town the person fishing drops a line in the lake).
-`p(u)` is the probability of catching a fish based on the population density of the fish.
+:fish: `c` is the harvesting rate.
+:fish: `h(x)` is the harvesting distribution (i.e. how far from the town the person fishing drops a line in the lake).
+:fish: `p(u)` is the probability of catching a fish based on the population density of the fish.
 
 ### Periodic Boundary Conditions
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassShadeExample__NoBackground.png" width="730" height="332" title="Periodic Grassland Model Example">
 
 One can model the changes in grass density where a tree shades some grass and fauna eat the grass with the following equation:
 
-<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassEquation.PNG" width="585" height="141" title="Grass Growth Reaction Diffusion Equation">
+<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassEquation.PNG" width="357" height="96" title="Grass Growth Reaction Diffusion Equation">
 
 The reaction term consists of the logistic growth model to simulate the density of the grass and `- mb - hqb` to model death of the grass.
-`g` is the growth rate of the grass
-`m` is the mortality rate of the grass
-`h`is the biomass density of the fauna
-`q` is the rate of consumption of the grass
+:elephant: `g` is the growth rate of the grass
+:elephant: `m` is the mortality rate of the grass
+:elephant: `h`is the biomass density of the fauna
+:elephant: `q` is the rate of consumption of the grass
 
 ### Convective Heat Boundary Conditions
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/ConvectiveHeat.png" width="446" height="241" title="Convective Heat Example">
