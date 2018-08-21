@@ -62,10 +62,25 @@ The reaction term consists of the logistic growth model to simulate the populati
 `p(u)` is the probability of catching a fish based on the population density of the fish.
 
 ### Periodic Boundary Conditions
-<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/PeriodicRingPic.png" width="361" height="427" title="Periodic Thin Ring Example">
+<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassShadeExample__NoBackground.png" width="730" height="332" title="Periodic Grassland Model Example">
+
+One can model the changes in grass density where a tree shades some grass and fauna eat the grass with the following equation:
+
+<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassEquation.PNG" width="585" height="141" title="Grass Growth Reaction Diffusion Equation">
+
+The reaction term consists of the logistic growth model to simulate the density of the grass and `- mb - hqb` to model death of the grass.
+`g` is the growth rate of the grass
+`m` is the mortality rate of the grass
+`h`is the biomass density of the fauna
+`q` is the rate of consumption of the grass
 
 ### Convective Heat Boundary Conditions
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/ConvectiveHeat.png" width="446" height="241" title="Convective Heat Example">
+
+For the Convective Heat boundary condition, the ambient temperature (T̄₀) as well as the thermal conductivity (K̄) have to be specified:
+```Julia
+left_bc = ConductiveHeat(T̄₀, K̄)
+```
 
 ### Dirichlet-Neumann Boundary Conditions
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletNeumann.png" width="593" height="298" title="Dirichlet-Neumann Example">
