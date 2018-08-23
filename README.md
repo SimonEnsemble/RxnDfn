@@ -7,15 +7,15 @@ ReactionDiffusionEqn is a Julia package that can solve a reaction diffusion equa
 3. Initial Condition (u₀)
 4. Boundary Conditions (Dirichlet, Neumann, Convective Heat (aka Robin), or Periodic)
   ```Julia
-  bc = Dirichlet(ū::Float64) # boundary condition must be specified
-  bc = Neumann(∂ū::Float64) # boundary condition derivative must be specified
+  bc = Dirichlet(ū) # boundary condition must be specified
+  bc = Neumann(∂ū) # boundary condition derivative must be specified
   bc = Periodic() # nothing needs to be specified
-  bc = ConvectiveHeat(T̄₀::Float64, K̄::Float64) # ambient temperature (T̄₀) and thermal conductivity (K̄) must be specified
+  bc = ConvectiveHeat(T̄₀, K̄) # ambient temperature (T̄₀) and thermal conductivity (K̄) must be specified
   ```
 5. Number of Spatial Steps (Nₓ - number of spatial discretization points)
 6. Space Time (space-time over which solution to PDE is approximated)
   ```Julia
-  st = SpaceTime(L::Float64, tf::Float64)  # L is the spatial extent and tf is the time span of simulation)
+  st = SpaceTime(L, tf)  # L is the spatial extent and tf is the time span of simulation)
   ```
 7. Sample Time (stores u every sample_time time steps)
 
@@ -80,7 +80,7 @@ The reaction term consists of the logistic growth model to simulate the populati
 ### Periodic Boundary Conditions
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassShadeExample__NoBackground.png" width="730" height="332" title="Periodic Grassland Model Example">
 
-One can model the changes in grass density where a tree shades some grass and fauna eat the grass with the following equation:
+One can model the changes in grass density where a tree shades some grass and fauna eat the grass with the following equation to simulate an infinite field with Periodic boundary conditions:
 
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassEquation.PNG" width="357" height="96" title="Grass Growth Reaction Diffusion Equation">
 
@@ -93,6 +93,7 @@ The reaction term consists of the logistic growth model to simulate the density 
 :elephant: `h` is the biomass density of the fauna
 
 :elephant: `q` is the rate of consumption of the grass
+
 
 When using Periodic boundary conditions, there is no need for a left and right boundary condition. Only one boundary condition is needed:
 ```Julia
