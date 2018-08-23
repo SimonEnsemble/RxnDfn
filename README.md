@@ -6,14 +6,23 @@ ReactionDiffusionEqn is a Julia package that can solve a reaction diffusion equa
 2. Reaction Term (f(x, t, u))
 3. Initial Condition (u₀)
 4. Boundary Conditions (Dirichlet, Neumann, Convective Heat (aka Robin), or Periodic)
+  ```Julia
+  bc = Dirichlet(ū::Float64) # boundary condition must be specified
+  bc = Neumann(∂ū::Float64) # boundary condition derivative must be specified
+  bc = Periodic() # nothing needs to be specified
+  bc = ConvectiveHeat(T̄₀::Float64, K̄::Float64) # the ambient temperature (T̄₀) and the thermal conductivity (K̄) must be specified
+  ```
 5. Number of Spatial Steps (Nₓ - number of spatial discretization points)
 6. Space Time (space-time over which solution to PDE is approximated)
+  ```Julia
+  st = SpaceTime(L::Float64, tf::Float64)  # L is the spatial extent and tf is the time span of simulation)
+  ```
 7. Sample Time (stores u every sample_time time steps)
 
 We approximate the solution to the PDE numerically using a finite difference spatial and temporal discretization with the Crank-Nicolson Method:
 ![Crank-Nicolson Equation](https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/Crank-NicolsonEqnPic.PNG)
 
-Approximating this complex equation is as easy as passing in the seven variables into the solve_rnx_diffn_eqn function.
+Approximating this complex equation is as easy as passing eight (seven if periodic, see periodic example for further explanation) variables into the solve_rnx_diffn_eqn function.
 Below is an example with Dirichlet Boundary Conditions and the corresponding heat map:
 ```Julia
 D = 1.0
@@ -35,9 +44,11 @@ ReactionDiffusionEqn can also handle mixed boundary conditions, such as Dirichle
 
 The following functions are also available to aid in visualizations:
 ```Julia
-gif_maker(t, x, u)
+gif_maker(t, x, u, st, sample_time)
 ```
-The gifmaker function plots the approximated u at each timestep.
+The gif_maker function plots the approximated u at each timestep.
+
+<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletGif.gif" width="600" height="400" title="DirichletGif">
 
 ```Julia
 draw_heat_map(t, x, u)
@@ -48,6 +59,8 @@ As shown in the example above, the draw_heat_map function outputs a heat map usi
 
 ### Dirichlet Boundary Conditions
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletHeatTransferPic.png" width="440" height="329" title="Dirichlet Heat Transfer">
+
+Use the ReactionDiffusionEqn package to determine how the temperature will change over time in an insulated, one-dimensional rod when it is heated at a particular location while the ends of the rod are held at a fixed temperature.
 
 ### Neumann Boundary Conditions
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/NeumannLakePic.png" width="473" height="237" title="Neumann Fish Boundary Conditions">
@@ -77,17 +90,17 @@ The reaction term consists of the logistic growth model to simulate the density 
 
 :elephant: `m` is the mortality rate of the grass
 
-:elephant: `h`is the biomass density of the fauna
+:elephant: `h` is the biomass density of the fauna
 
 :elephant: `q` is the rate of consumption of the grass
 
-### Convective Heat Boundary Conditions
-<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/ConvectiveHeat.png" width="446" height="241" title="Convective Heat Example">
-
-For the Convective Heat boundary condition, the ambient temperature (T̄₀) as well as the thermal conductivity (K̄) have to be specified:
+When using Periodic boundary conditions, there is no need for a left and right boundary condition. Only one boundary condition is needed:
 ```Julia
-left_bc = ConductiveHeat(T̄₀, K̄)
+bc = Periodic()
+t, x, u = solve_rxn_diffn_eqn(bc, f, u₀, D, Nₓ, st, sample_time)
 ```
 
-### Dirichlet-Neumann Boundary Conditions
-<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletNeumann.png" width="593" height="298" title="Dirichlet-Neumann Example">
+### Dirichlet-Convective Heat Boundary Conditions
+<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletConvective.png" width="593" height="322" title="Dirichlet-Convective Heat Example">
+
+The ReactionDiffusionEqn software can also handle mixed boundary conditions. In this example, we mix Dirichlet and Convective Heat boundary conditions. We have an insulated, one-dimensional rod and can evaluate the change in temperature as the rod is heated while one end of the rod is held at a fixed temperature.
