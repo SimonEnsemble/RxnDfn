@@ -1,7 +1,7 @@
 # ReactionDiffusionEqn
 ![Diffusion Equation](https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DfnEqnPic.PNG)
 
-ReactionDiffusionEqn is a Julia package that can solve a reaction diffusion equation based on the following input:
+ReactionDiffusionEqn is a Julia package that can find numerical solutions to one-dimensional reaction diffusion equations based on the following input:
 1. Diffusion Coefficient (D)
 2. Reaction Term (f(x, t, u))
 3. Initial Condition (u₀)
