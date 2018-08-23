@@ -10,7 +10,7 @@ ReactionDiffusionEqn is a Julia package that can solve a reaction diffusion equa
   bc = Dirichlet(ū::Float64) # boundary condition must be specified
   bc = Neumann(∂ū::Float64) # boundary condition derivative must be specified
   bc = Periodic() # nothing needs to be specified
-  bc = ConvectiveHeat(T̄₀::Float64, K̄::Float64) # the ambient temperature (T̄₀) and the thermal conductivity (K̄) must be specified
+  bc = ConvectiveHeat(T̄₀::Float64, K̄::Float64) # ambient temperature (T̄₀) and thermal conductivity (K̄) must be specified
   ```
 5. Number of Spatial Steps (Nₓ - number of spatial discretization points)
 6. Space Time (space-time over which solution to PDE is approximated)
@@ -44,16 +44,16 @@ ReactionDiffusionEqn can also handle mixed boundary conditions, such as Dirichle
 
 The following functions are also available to aid in visualizations:
 ```Julia
+draw_heat_map(t, x, u)
+```
+As shown in the example above, the draw_heat_map function outputs a heat map using PyPlot.
+
+```Julia
 gif_maker(t, x, u, st, sample_time)
 ```
 The gif_maker function plots the approximated u at each timestep.
 
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletGif.gif" width="600" height="400" title="DirichletGif">
-
-```Julia
-draw_heat_map(t, x, u)
-```
-As shown in the example above, the draw_heat_map function outputs a heat map using PyPlot.
 
 ## Examples
 
