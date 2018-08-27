@@ -20,5 +20,4 @@ function draw_heat_map(t, x, u)
     plt.xlabel("x")
     plt.ylabel("t")
     plt.colorbar(label="Concentration of u")
-    plt.savefig("heatmap.png")
 end

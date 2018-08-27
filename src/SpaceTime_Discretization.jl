@@ -6,6 +6,6 @@ type Discretization
 end
 
 type SpaceTime
-    L::Float64 #spacial extent
+    L::Float64 #spatial extent
     tf::Float64 #time span of simulation
 end
