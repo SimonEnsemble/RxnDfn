@@ -19,7 +19,7 @@ ReactionDiffusionEqn is a Julia package that can find numerical solutions to one
   ```
 7. Sample Time (stores u every sample_time time steps)
 
-We approximate the solution to the PDE numerically using a finite difference spatial and temporal discretization with the Crank-Nicolson Method:
+The solution to the PDE is approximated numerically using a finite difference spatial and temporal discretization with the Crank-Nicolson Method:
 ![Crank-Nicolson Equation](https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/Crank-NicolsonEqnPic.PNG)
 
 Approximating this complex equation is as easy as passing eight (seven if periodic, see periodic example for further explanation) variables into the solve_rnx_diffn_eqn function.
@@ -65,7 +65,7 @@ Use the ReactionDiffusionEqn package to determine how the temperature will chang
 ### Neumann Boundary Conditions
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/NeumannLakePic.png" width="473" height="237" title="Neumann Fish Boundary Conditions">
 
-Imagine you have a one dimensional lake with a town at one end and a forest at the other as pictured above. We can use the following equation to model the fish population in the lake if people fish there:   
+Imagine there is a one dimensional lake with a town at one end and a forest at the other as pictured above. The following equation can be used to model the fish population in the lake if people fish there:   
 
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/FishHarvestingEqn.PNG" width="357" height="96" title="Fish Harvesting Reaction Diffusion Equation">
 
@@ -80,7 +80,7 @@ The reaction term consists of the logistic growth model to simulate the populati
 ### Periodic Boundary Conditions
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassShadeExample__NoBackground.png" width="730" height="332" title="Periodic Grassland Model Example">
 
-One can model the changes in grass density where a tree shades some grass and fauna eat the grass with the following equation to simulate an infinite field with Periodic boundary conditions:
+The changes in grass density can be modeled where a tree shades some grass and fauna eat the grass with the following equation to simulate an infinite field with Periodic boundary conditions:
 
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassEquation.PNG" width="357" height="96" title="Grass Growth Reaction Diffusion Equation">
 
@@ -104,4 +104,4 @@ t, x, u = solve_rxn_diffn_eqn(bc, f, u₀, D, Nₓ, st, sample_time)
 ### Dirichlet-Convective Heat Boundary Conditions
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/DirichletConvective.png" width="593" height="322" title="Dirichlet-Convective Heat Example">
 
-The ReactionDiffusionEqn software can also handle mixed boundary conditions. In this example, we mix Dirichlet and Convective Heat boundary conditions. We have an insulated, one-dimensional rod and can evaluate the change in temperature as the rod is heated while one end of the rod is held at a fixed temperature.
+The ReactionDiffusionEqn software can also handle mixed boundary conditions. In this example, Dirichlet and Convective Heat boundary conditions are mixed. Above is an insulated, one-dimensional rod, and this software can be used to evaluate the change in temperature as the rod is heated while one end of the rod is held at a fixed temperature.
