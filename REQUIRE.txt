@@ -1,4 +1,4 @@
-julia 0.6.4
+julia 1.0.0
 Calculus
 ProgressMeter
 PyPlot
