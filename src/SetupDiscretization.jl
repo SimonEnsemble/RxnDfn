@@ -1,9 +1,11 @@
+using Printf
 function setup_discretization(Nₓ::Int, st::SpaceTime, D::Float64)
     # compute Δx, Nₜ, Δt below.
     discretization = Discretization(Nₓ, NaN, 0, NaN)
 
     # discretize space.
-    x = collect(linspace(0, st.L, discretization.Nₓ)) # includes end points!
+    #x = collect(linspace(0, st.L, discretization.Nₓ)) # includes end points!
+    x = collect(range(0, stop=st.L, length=discretization.Nₓ))
     discretization.Δx = x[2] - x[1]
     @printf("%d points in x-discretization. dx = %f\n", discretization.Nₓ, discretization.Δx)
 

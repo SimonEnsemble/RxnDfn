@@ -1,18 +1,18 @@
 abstract type BoundaryCondition
 end
 
-type Dirichlet <: BoundaryCondition
+mutable struct Dirichlet <: BoundaryCondition
     ū::Float64
 end
 
-type Neumann <: BoundaryCondition
+mutable struct Neumann <: BoundaryCondition
     ∂ū::Float64
 end
 
-type Periodic <: BoundaryCondition
+mutable struct Periodic <: BoundaryCondition
 end
 
-type ConvectiveHeat <: BoundaryCondition
+mutable struct ConvectiveHeat <: BoundaryCondition
     T̄₀::Float64
     K̄::Float64 # K̄ = h/k
 end

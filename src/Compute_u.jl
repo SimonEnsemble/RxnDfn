@@ -38,16 +38,16 @@ function compute_u(left_bc::Union{Neumann, Dirichlet, Periodic, ConvectiveHeat},
             # Different bc's have different num of unknowns, so we account for that here
             # Dirichlet bc's are added later
             if isa(left_bc, Periodic)
-                u_sample[1:end-1, sample_counter] = u
+                u_sample[1:end-1, sample_counter] .= u
             elseif (isa(left_bc, Neumann) || isa(left_bc, ConvectiveHeat)) && (isa(right_bc, Neumann) || isa(right_bc, ConvectiveHeat))
                 # accounts for Neumann-Neumann, ConvectiveHeat-ConvectiveHeat, N-CH & CH-N bc's
-                u_sample[:, sample_counter] = u
+                u_sample[:, sample_counter] .= u
             elseif isa(left_bc, Dirichlet) && isa(right_bc, Dirichlet)
-                u_sample[2:end-1, sample_counter] = u
+                u_sample[2:end-1, sample_counter] .= u
             elseif (isa(left_bc, Neumann) || isa(left_bc, ConvectiveHeat)) && isa(right_bc, Dirichlet)
-                u_sample[1:end-1, sample_counter] = u
+                u_sample[1:end-1, sample_counter] .= u
             elseif isa(left_bc, Dirichlet) && (isa(right_bc, Neumann) || isa(right_bc, ConvectiveHeat))
-                u_sample[2:end, sample_counter] = u
+                u_sample[2:end, sample_counter] .= u
             end
             t_sample[sample_counter] = t - discretization.Δt
             sample_counter += 1
@@ -108,15 +108,15 @@ function compute_u(left_bc::Union{Neumann, Dirichlet, Periodic, ConvectiveHeat},
         push!(x, st.L)
     elseif isa(left_bc, Dirichlet) && isa(right_bc, Dirichlet)
         # insert bc's for first and last rows
-        u_sample[1, :] = left_bc.ū
-        u_sample[end, :] = right_bc.ū
+        u_sample[1, :] .= left_bc.ū
+        u_sample[end, :] .= right_bc.ū
         # add first and last spatial step to x
         x = vcat([0.0], x, [st.L])
     elseif isa(left_bc, Dirichlet)
-        u_sample[1, :] = left_bc.ū
+        u_sample[1, :] .= left_bc.ū
         x=vcat([0.0], x)
     elseif isa(right_bc, Dirichlet)
-        u_sample[end, :] = right_bc.ū
+        u_sample[end, :] .= right_bc.ū
         push!(x, st.L)
     end
 

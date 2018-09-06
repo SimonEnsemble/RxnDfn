@@ -1,3 +1,5 @@
+__precompile__(false)
+
 module RxnDfn
 
 include("BoundaryConditions.jl")
