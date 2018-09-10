@@ -1,0 +1,35 @@
+# Below is the variables for the Periodic BC example equation
+
+# variables for reaction term, f(x, t, u)
+# note that g in the example equation is a function of water (w) such that g(w) = Ω * w(x)
+# w(x, t) = R₁ / v(x) + (R₀ / v(x)) / (sqrt((ω / v(x))^2 + 1)) * sin(ω * t + ϕ)
+# v(x) represents the evaporation rate
+Ω = 0.032 # (kg/m^2)^-1 * year^-1 = biomass growth rate per unit soil water
+z = 20.0
+β = 0.5
+v₀ = 0.008
+v(x::Float64) = v₀ + 5 * (e^(β * (x - z)) / (1 + e^(β * (x - z))))
+ω = (2 * π) * 3 
+ϕ(x::Float64) = -atan(ω / v(x)) # phase shift
+R₀ = 0.508 # intensity of rainfall
+R₁ = R₀
+K = 1.0 # kg/m^2 = maximum standing biomass
+m = 1.2 # year^-1 = rate of biomass loss due to mortality and disturbances
+h = 0.01 # kg/m^2 = herbivor biomass
+q = 3.15 # 0.0315 * (b - 0.05) / (b + 0.01) # rate of consumption of grass
+
+# variables for solve_rnx_diffn_eqn
+D = 0.1
+f(x::Float64, t::Float64, b::Float64) = Ω * (R₁ / v(x) + (R₀ / v(x)) / (sqrt((ω / v(x))^2 + 1)) * sin(ω * t + ϕ(x))) * b * (1 - b / K) - (m * b) - (h * q * b)
+u₀(x::Float64) = K
+bc = Periodic()
+Nₓ = 500
+st = SpaceTime(50.0, 1.0)
+sample_time = 0.01
+
+# solve equation
+t, x, u = solve_rxn_diffn_eqn(bc, f, u₀, D, Nₓ, st, sample_time)
+
+# make heat map and gif
+draw_heat_map(t, x, u,)
+gif_maker(t, x, u)
