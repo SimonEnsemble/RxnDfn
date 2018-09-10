@@ -94,7 +94,7 @@ The reaction term consists of the logistic growth model to simulate the density 
 
 :elephant: `q` is the rate of consumption of the grass
 
-Since the tree shades some of the grass, the soil-water evaporation rate in the shade is lower than that of the soil in the sun, causing grass in the shade to live longer, as see in the heat map and gif below. 
+Since the tree shades some of the grass, the soil-water evaporation rate in the shade is lower than that of the soil in the sun, causing grass in the shade to live longer, as seen in the heat map and gif below. 
 
 <img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassHeatMapPeriodic.png" width="562" height="438" title="Grass Growth Heat Map">
 
