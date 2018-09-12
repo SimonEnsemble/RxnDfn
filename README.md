@@ -94,11 +94,6 @@ The reaction term consists of the logistic growth model to simulate the density 
 
 :elephant: `q` is the rate of consumption of the grass
 
-Since the tree shades some of the grass, the soil-water evaporation rate in the shade is lower than that of the soil in the sun, causing grass in the shade to live longer, as seen in the heat map and gif below. 
-
-<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassHeatMapPeriodic.png" width="562" height="438" title="Grass Growth Heat Map">
-
-<img src="https://github.com/SimonEnsemble/RxnDfn/blob/master/Images/GrassModelGif.gif" width="600" height="400" title="Grass Growth Gif">
 
 When using Periodic boundary conditions, there is no need for a left and right boundary condition. Only one boundary condition is needed:
 ```Julia
